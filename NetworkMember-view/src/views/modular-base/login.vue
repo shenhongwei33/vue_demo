@@ -1,7 +1,7 @@
 <template>
   <div class="login-box">
     <h3 class="login-title">欢迎登录</h3>
-    <el-form ref="form" :model="form" :rules="rules" label-width="60px">
+    <el-form ref="form" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="用户名" prop="name">
         <el-input v-model="form.name" autocomplete="off" placeholder="请输入用户名"></el-input>
       </el-form-item>
@@ -13,9 +13,9 @@
           auto-complete="new-password"
         ></el-input>
       </el-form-item>
-      <el-form-item class="buttom-box">
+      <el-form-item>
         <el-button type="primary" @click="submitForm('form')" class="button-style">登录</el-button>
-        <el-button @click="resetForm('form')" class="button-style" style="margin-left:100px">重置</el-button>
+        <el-button @click="onReset('form')" class="button-style" style="margin-left:100px">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -30,11 +30,11 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
+          { required: true, message: "请输入用户名", trigger: "blur" },
           { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         password: [
-          { required: true, message: "请选择活动区域", trigger: "change" }
+          { required: true, message: "请输入密码", trigger: "blur" }
         ]
       }
     };
@@ -43,7 +43,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.$message({
+          message: '恭喜你，这是一条成功消息',
+          type: 'success'
+        });
         } else {
           console.log("error submit!!");
           return false;
@@ -74,12 +77,9 @@ export default {
   text-align: center;
 }
 
-.button-box {
-  margin: 0px;
-}
-
 .button-style {
   position: relative;
   left: -20px;
+  top:20px;
 }
 </style>
