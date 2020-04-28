@@ -23,6 +23,7 @@ export default {
   color: #2c3e50;
   position: absolute;
   width:100%;height: 100%;
+  overflow: visible;
 }
 #app>div[data-v-a8a45aac]{width:100%;height: 100%;}
 </style>

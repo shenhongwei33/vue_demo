@@ -1,5 +1,4 @@
 ﻿import * as types from '../mutation-types.js';
-import {menuList} from './textData/menuList.js'
 import {requestHelp} from './ajaxUtil.js';
 //提取公共的action
 export const commonAction = {

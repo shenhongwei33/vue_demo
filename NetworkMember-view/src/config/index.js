@@ -19,13 +19,9 @@ export default {
 	 * minLogo:首页小LOGO的地址
 	 */
 	oemOBJ:{
-		cmsoft:{
-			"title": "BC-BU备份管理平台",
-			"name":"中移（苏州）软件技术有限公司*China mobile (suzhou) software technology co., LTD",
-			"favicon":process.env.BASE_URL+"cmsoft/favicon.ico",
-			"maxLogo":process.env.BASE_URL+"cmsoft/logo1.png",
-			"minLogo":process.env.BASE_URL+"cmsoft/logo2.png",
-			"mainLogo":process.env.BASE_URL+"cmsoft/logo3.png"
+		mysoft:{
+			"title": "模板平台",
+			//"mainLogo":process.env.BASE_URL+"cmsoft/logo3.png"
 		}
 	},
 	//当前打包的OEM版本，中移（苏州）软件技术有限公司
