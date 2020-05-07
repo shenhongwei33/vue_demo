@@ -33,7 +33,7 @@ export const requestHelp = ({paramsPkg}, commit) => {
 	}
 	return new Promise(function(resolve,reject){
 		instance({
-			method:"post",
+			method: (paramsPkg.method ? paramsPkg.method:"get"),
 			url:requestUrl+paramsPkg.fun,
 			responseType:paramsPkg.responseType?paramsPkg.responseType:"json",
 			data:paramsPkg.data?paramsPkg.data:{},
@@ -48,18 +48,16 @@ export const requestHelp = ({paramsPkg}, commit) => {
 			let status=response.status;
 			if(status>=200 && status<=300){
 				//判断，如果不是登录页面，授权页面，其他页面如果直接提示登录超时,则退出登录
-				if(response.data.code=="9090" && (window.vueModel.$route.name!="login" || window.vueModel.$route.name!="register")){
+				if(response.data.code !=="200" && (window.vueModel.$route.name!="login" || window.vueModel.$route.name!="register")){
 					commit(types.TIME_OUT,true);
 					resolve({code:"9090"});
 				}else{
 					resolve(response.data);
-				}
-				
+				}			
 			}else{
 				//window.vueModel.$router.push({name:"error-500"})
 				resolve({code:"9980"});
 			}
-
 		}).catch((error)=>{ 
 			commit(types.LOADING_STATE,false);
 			//window.vueModel.$router.push({name:"error-500"})

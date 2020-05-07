@@ -1,16 +1,51 @@
 <template>
-  <div id="app">
+  <div id="app" v-loading="loading">
     <router-view/>
   </div>
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
+import Cookies from "js-cookie";
 export default {
   name: 'App',
   components:{
 
-  }
+  },
+  mounted() {
+    /*区分关闭和刷新，关闭退出登录 start*/
+    window.onload = function() {
+      if (!window.sessionStorage["ISlogin"]) {
+        Cookies.remove("wdp-iam-cookie");
+        location.reload(); //不能省，强制跳到登陆页
+      } else {
+        window.sessionStorage.removeItem("ISlogin");
+      }
+    };
+    window.onunload = function() {
+      window.sessionStorage["ISlogin"] = true;
+    };
+    window.onbeforeunload = function() {
+      window.sessionStorage["ISlogin"] = true;
+    };
+  },
+  computed:{
+    loading(){
+      return this.$store.state.loadingState;
+    }
+  },
+  watch:{
+        timeOut(){
+            if(!this.timeOut){
+                return;
+            }
+             Cookies.remove("wdp-iam-cookie");
+                this.$store.dispatch("setTimeOut");
+                this.$router.push({
+                    name: "login"
+            });
+        }
+    }
 }
 </script>
 

@@ -3,21 +3,39 @@ const NodeRSA = require('node-rsa');  //引用RES源码js
 function getAesString(data, key, iv) {
     var key = CryptoJS.enc.Utf8.parse(key);
     var iv = CryptoJS.enc.Utf8.parse(iv);
-    var encrypted = CryptoJS.AES.encrypt(data, key, {
+    var src = CryptoJS.enc.Utf8.parse(data);
+    var encrypted = CryptoJS.AES.encrypt(src, key, {
         iv: iv,
         mode: CryptoJS.mode.OFB,
         padding: CryptoJS.pad.NoPadding
     });
-    var hexStr = encrypted.ciphertext.toString().toUpperCase();
-    var oldHexStr = CryptoJS.enc.Hex.parse(hexStr);
-    var base64Str = CryptoJS.enc.Base64.stringify(oldHexStr);
+    var hexStr = encrypted.toString();
     return hexStr
+}
+
+function aesDecrypt(data, key, iv) {
+    var key = CryptoJS.enc.Utf8.parse(key);
+    var iv = CryptoJS.enc.Utf8.parse(iv);
+    var decrypt = CryptoJS.AES.decrypt(data, key, {
+        iv: iv,
+        mode: CryptoJS.mode.OFB,
+        padding: CryptoJS.pad.NoPadding
+    });
+    var decryptedStr = CryptoJS.enc.Utf8.stringify(decrypt).toString();   //decrypt.toString(CryptoJS.enc.Utf8);
+    return decryptedStr;
 }
 
 export const getAES = (data) =>{
     var key = 'bcbu-2019@com.cn';
     var iv = 'bcbu-2019@com.cn';
     var encrypted = getAesString(data, key, iv);
+    return encrypted
+}
+
+export const getAESDecrypt = (data) => {
+    var key = 'bcbu-2019@com.cn';
+    var iv = 'bcbu-2019@com.cn';
+    var encrypted = aesDecrypt(data, key, iv);
     return encrypted
 }
 

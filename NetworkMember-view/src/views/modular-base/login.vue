@@ -65,6 +65,7 @@ export default {
             let name = this.form.name; 
             let paramsPkg = {
                 fun: "/login",
+                method:"post",
                 data: {
                     userName: name,
                     password: psw,
@@ -72,11 +73,11 @@ export default {
             };
             this.$store.dispatch("getHttpData", { paramsPkg }).then(json => {
                 if (json.code == "200") {
-                    // Cookies.set("wdp-iam-cookie", json.data.token);
-                    // localStorage.userName = json.data.suName;
+                    var inFifteenMinutes = new Date(new Date().getTime() + 30 * 60 * 1000);
+                     Cookies.set("wdp-iam-cookie", json.data.token,{expires: inFifteenMinutes});
+                     localStorage.userName = name;
                     // localStorage.userID = json.data.userId;
-                    // localStorage.tagNaveList = "";
-                    
+                    // localStorage.tagNaveList = "";               
                     this.$router.push({
                         name: "home"
                     });
@@ -137,7 +138,7 @@ export default {
 }
 
 .backgroundSet{
-  background-image: url(../../assets/images/bg-1.png);
+  background-image: url(../../assets/images/loginBg1.jpg);
   
 }
 </style>

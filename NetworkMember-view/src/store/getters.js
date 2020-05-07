@@ -1,17 +1,17 @@
 //提取公共的getter
 const commonGetters = {
 	//获取面包屑导航
-	getTagNavList: state =>state.com.tagNavList,
+	getTagNavList: state =>state.tagNavList,
 	//获取菜单
-	getMenuList: state =>state.com.menuList,
+	getMenuList: state =>state.menuList,
 	//获取加载状态
-	getLoadingState:state =>state.com.loadingState,
+	getLoadingState:state =>state.loadingState,
 	//获取超时状态
-	getTimeOut:state=>state.com.timeOut,
+	getTimeOut:state=>state.timeOut,
 	//获取未读信息
-	getunreadMessages:state=>state.com.unreadMessages,
+	getunreadMessages:state=>state.unreadMessages,
 	//获取页面菜单状态
-	getCollapsed: state => state.com.collapsed,
+	getCollapsed: state => state.collapsed,
 };
 
 

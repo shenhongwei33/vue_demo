@@ -1,6 +1,6 @@
 export default {
-	//token在Cookie中存储的天数，默认1天
-	cookieExpires: 1,
+	//token在Cookie中存储的天数，默认30分钟
+	cookieExpires: 60*1000*30,
 	//国际化，防止后期做在线语言切换
 	useI18n:true,
 	//所有页面展示，批量获取数据

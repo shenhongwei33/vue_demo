@@ -28,28 +28,6 @@ export const commonAction = {
 		 	return Promise.resolve("Error");
 		 })
 	},
-
-	//获取密码是否需要修改
-	changePasswordAmend:({commit},{paramsPkg})=>{
-		return requestHelp({paramsPkg}, commit).then((json) => {
-			return new Promise(function(resolve,reject){
-				if(json!="error"){
-					resolve(json);
-				}else{
-					resolve("");
-				}
-			})
-		}).catch((error) => {
-			return Promise.resolve("");
-		});
-	},
-	//控制导航缩进状态
-	getCollapsed:({commit},data)=>{
-		return new Promise(function(resolve){
-			commit(types.SET_COLLAPSED,data);
-	 		resolve();	
-		})
-	},
 	//通用后台接口方法
 	getHttpData:({commit},{paramsPkg})=>{
 		return requestHelp({paramsPkg}, commit).then((json) => {
@@ -68,9 +46,15 @@ export const commonAction = {
 	//返回用户当前对应的菜单信息
 	getUserInfo:({state})=>{
 		return new Promise(function(resolve){
-	 		resolve(state.com.menuList);	
+	 		resolve(state.menuList);	
 		})
 	},
+	//获取用户名
+	getUserName:({commit,state}) => {
+		//发送异步ajax请求
+		
+		//提交一个mutation
+	}
 
 }
 

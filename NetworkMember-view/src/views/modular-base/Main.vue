@@ -1,59 +1,70 @@
 <template>
   <el-container style="height: 500px; border: 1px solid #eee">
     <side-menu></side-menu>
-    <el-container>
-      <el-header style="text-align: right; font-size: 12px">
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <span>王小虎</span>
-      </el-header>
-
-      <el-main class="main-content-header"> 
-        <span>haha</span>
-        <span>/</span>
-        <span>wefdf</span>
+    <el-container style="flex-direction: column;">
+      <main-header></main-header>
+      <el-main class="main-content">
+        <router-view />
       </el-main>
-      <el-main class="main-content"> 
-        <el-table :data="tableData">
-          <el-table-column prop="date" label="日期" width="140"></el-table-column>
-          <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-          <el-table-column prop="address" label="地址"></el-table-column>
-        </el-table>
-      </el-main>
-	  <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </el-container>
 </template>
 <script>
-import sideMenu from '../../components/side-menu/side-menu'
+import sideMenu from "../../components/side-menu/side-menu";
+import mainHeader from "../../components/main-header/main-header";
+import Cookies from "js-cookie";
 export default {
+  name:"Main",
   data() {
-    const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄"
-    };
     return {
-    tableData: Array(20).fill(item),
-    logo:'系统'
+      logo: "系统"
     };
   },
-  methods:{
-	  
+  methods: {
+    initPage(){
+      //初始化设置标签导航
+			this.$store.dispatch("setBreadCrumb", this.$route.matched);
+    }
   },
-  components:{
-    'side-menu':sideMenu
+  components: {
+    "side-menu": sideMenu,
+    "main-header": mainHeader
+  },
+  computed: {
+    loading() {
+      return this.$store.state.loadingState;
+    },
+    userName() {
+      return localStorage.userName;
+    }
+  },
+  mounted() {
+    if (!Cookies.get("wdp-iam-cookie")) {
+      this.$router.push({
+        name: "login"
+      });
+    } /* else{
+			this.liceseState();
+		} */
+  },
+  watch: {
+    $route(newRoute) {
+      this.$store.dispatch("setBreadCrumb", this.$route.matched);
+      
+      // this.$store.dispatch(
+      //   "setTagNavList",
+      //   getNewTagList(this.tagNavList, newRoute)
+      // );
+    },
+    collapsed() {
+      this.$store.dispatch("getCollapsed", this.collapsed);
+    }
   }
-}
+};
 </script>
 <style scoped>
-.el-header, .el-footer {
+.el-header,
+.el-footer {
   background-color: #b3c0d1;
   color: #333;
   line-height: 60px;
@@ -69,7 +80,34 @@ export default {
   margin: 0;
   width: 100%;
 }
-.el-container{height:100%;padding:0;margin:0;width:100%;}
-#menu-title{height: 60px;font-weight: bold;}
-.main-content-header{overflow: visible;background-color: rgb(238, 241, 246);text-align: left;padding: 10px;}
+.el-container {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+#menu-title {
+  height: 60px;
+  font-weight: bold;
+}
+.main-content-header {
+  overflow: visible;
+  background-color: rgb(238, 241, 246);
+  text-align: left;
+  padding: 10px;
+}
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409eff;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
+}
+.el-breadcrumb {
+  line-height: 60px;
+  color: black;
+}
+.el-breadcrumb__separator {
+  color: #606266;
+}
 </style>

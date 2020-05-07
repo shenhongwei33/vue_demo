@@ -6,7 +6,8 @@ import { forEach, hasOneOf, objEqual } from './tools'
 export const TOKEN_KEY = 'token'
 
 export const setToken = (token) => {
-    Cookies.set(TOKEN_KEY, token, {expires: config.cookieExpires || 1})
+    var exp = new Date();
+    Cookies.set(TOKEN_KEY, token, { expires: exp.getTime() + (config.cookieExpires || (60 * 1000 * 30))})
 }
 
 export const getToken = () => {
@@ -71,7 +72,6 @@ export const getBreadCrumbList = (routeMetched, homeRoute) => {
   }else{
     return [...res]
   }
-  //return [Object.assign(homeRoute, { to: homeRoute.path }), ...res]
 }
 
 export const showTitle = (item, vm) => {
