@@ -71,7 +71,7 @@ export default {
                     password: psw,
                 }
             };
-            this.$store.dispatch("getHttpData", { paramsPkg }).then(json => {
+            this.$store.dispatch("notGetHttpData", { paramsPkg }).then(json => {
                 if (json.code == "200") {
                     var inFifteenMinutes = new Date(new Date().getTime() + 30 * 60 * 1000);
                      Cookies.set("wdp-iam-cookie", json.data.token,{expires: inFifteenMinutes});
@@ -83,7 +83,7 @@ export default {
                     });
                 }
                 else {
-                    console.log(json);
+                    //console.log(json);
                 }
             });
         } else {

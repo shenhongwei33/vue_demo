@@ -4,7 +4,7 @@
         <custom-bread-crumb :list="breadCrumbList"></custom-bread-crumb>
       </el-col>
       <el-col :span="12">
-        <user-crumb></user-crumb>
+        <user-crumb @personal="toPerson"></user-crumb>
       </el-col>
   </el-header>
 </template>
@@ -27,7 +27,11 @@ export default {
       return this.$store.state.breadCrumbList;
     }
   },
-  methods: {},
+  methods: {
+    toPerson(){
+      this.$emit('person');
+    }
+  },
   created() {},
   mounted() {}
 };

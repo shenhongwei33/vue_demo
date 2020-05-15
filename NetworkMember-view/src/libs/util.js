@@ -156,7 +156,7 @@ export const canTurnTo = (name, routes) => {
             }
 	    })
     }
-    return routePermissionJudge(routes)
+    return routePermissionJudge(routes);
 }
 
 /**

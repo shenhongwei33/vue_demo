@@ -1,8 +1,8 @@
 <template>
   <el-container style="height: 500px; border: 1px solid #eee">
-    <side-menu></side-menu>
+    <side-menu :menu-list="menuList" @select="turnToPage"></side-menu>
     <el-container style="flex-direction: column;">
-      <main-header></main-header>
+      <main-header @person="turnToPerson"></main-header>
       <el-main class="main-content">
         <router-view />
       </el-main>
@@ -13,17 +13,51 @@
 import sideMenu from "../../components/side-menu/side-menu";
 import mainHeader from "../../components/main-header/main-header";
 import Cookies from "js-cookie";
+import { mapGetters } from "vuex";
 export default {
-  name:"Main",
+  name: "Main",
   data() {
     return {
       logo: "系统"
     };
   },
   methods: {
-    initPage(){
+    initPage() {
+      this.menuListAll();
       //初始化设置标签导航
-			this.$store.dispatch("setBreadCrumb", this.$route.matched);
+      this.$store.dispatch("setBreadCrumb", this.$route.matched);
+    },
+    //获取菜单
+    menuListAll() {
+      let role_id = 1;
+      let paramsPkg = {
+        fun: "/getMenuList",
+        method: "get",
+        data: {
+          roleId: role_id
+        }
+      };
+      this.$store.dispatch("getMenuListSQL", { paramsPkg }).then(json => {});
+    },
+    //页面跳转
+    turnToPage(route) {
+      let routePath = "";
+      if (typeof route === "string") {
+        routePath = route;
+        this.$router.push({ path: routePath });
+      } else {
+        params = route.params;
+        query = route.query;
+        path = route.path;
+        this.$router.push({
+          path,
+          params,
+          query
+        });
+      }
+    },
+    turnToPerson(){
+      this.turnToPage('/userManagement');
     }
   },
   components: {
@@ -36,21 +70,24 @@ export default {
     },
     userName() {
       return localStorage.userName;
-    }
+    },
+    ...mapGetters({
+      menuList: "getMenuList"
+    })
   },
   mounted() {
     if (!Cookies.get("wdp-iam-cookie")) {
       this.$router.push({
         name: "login"
       });
-    } /* else{
-			this.liceseState();
-		} */
+    } else {
+      this.initPage();
+    }
   },
   watch: {
     $route(newRoute) {
       this.$store.dispatch("setBreadCrumb", this.$route.matched);
-      
+
       // this.$store.dispatch(
       //   "setTagNavList",
       //   getNewTagList(this.tagNavList, newRoute)

@@ -7,31 +7,29 @@ const FileBackup = r => require.ensure([], () => r(require('../../views/modular-
 
 const VirtualBackup = r => require.ensure([], () => r(require('../../views/modular-backup/virtual-backup.vue')), 'VirtualBackup');
 
-
-
 //业务的页面
-export const accountManagementRuoterpage = {
+export const backupRuoterpage = {
     path: '/backup',
     name: 'backup',
     component: Main,
-    icon: "_system-manage",
+    icon: "el-icon-files",
     meta: {
-        icon: "_system-manage",
+        icon: "el-icon-files",
     },
     children: [
         {
-            path: '/database',
-            name: "databaseBackup",
+            path: 'database',
+            name: "database",
             icon: "",
             component: DatabaseBackup
         },{
-            path: '/file',
-            name: "fileBackup",
+            path: 'file',
+            name: "file",
             icon: "",
             component: FileBackup
         }, {
-            path: '/virtual',
-            name: "virtualBackup",
+            path: 'virtual',
+            name: "virtual",
             icon: "",
             component: VirtualBackup
         }

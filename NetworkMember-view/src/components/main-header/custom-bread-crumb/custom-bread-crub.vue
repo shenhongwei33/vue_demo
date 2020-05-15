@@ -1,5 +1,5 @@
 <template>
-    <el-breadcrumb separator="/">
+    <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item v-for="item in list" :to="item.to" :key="`bread-crumb-${item.name}`">{{showTitle(item)}}</el-breadcrumb-item>
     </el-breadcrumb>
 </template>
@@ -29,9 +29,18 @@ export default {
   mounted() {}
 };
 </script>
-<style scoped>
+<style>
 .el-breadcrumb{
   line-height: 60px;
-  color: black;
+  color: #606266;
+}
+.el-breadcrumb__inner {
+  color: #606266
+} 
+.el-icon-arrow-right{
+  color: #606266
+}
+.el-breadcrumb__separator[class*=icon]{
+color: #606266
 }
 </style>

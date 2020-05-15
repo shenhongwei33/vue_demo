@@ -7,20 +7,16 @@ const homePage = r => require.ensure([], () => r(require('../../views/modular-ba
 const register = r => require.ensure([], () => r(require('../../views/modular-base/register.vue')), 'Register');
 
 //按需加载
-const DatabaseBackup = r => require.ensure([], () => r(require('../../views/modular-backup/database-backup.vue')), 'DatabaseBackup');
-
-const FileBackup = r => require.ensure([], () => r(require('../../views/modular-backup/file-backup.vue')), 'FileBackup');
-
-const VirtualBackup = r => require.ensure([], () => r(require('../../views/modular-backup/virtual-backup.vue')), 'VirtualBackup');
+const UserManagerment = r => require.ensure([], () => r(require('../../views/modular-accountManagerment/userManagerMent.vue')), 'UserManagement');
 
 
 export const loginRouter = {
-    path: '/login',
-    name: 'login',
-    meta: {
-        title: 'Login - 登录'
-    },
-    component: login
+  path: '/login',
+  name: 'login',
+  meta: {
+    title: 'Login - 登录'
+  },
+  component: login
 };
 
 const registerRouter = {
@@ -32,15 +28,6 @@ const registerRouter = {
   component: register
 };
 
-// const registerRouter = {
-//     path: '/register',
-//     name: 'register',
-//     meta: {
-//         title: '注册'
-//     },
-//     component: register
-// };
-
 // 作为Main组件的子页面展示但是不在左侧菜单显示的路由写在otherRouter里
 const otherRouter = {
   path: '/',
@@ -51,40 +38,26 @@ const otherRouter = {
     hide: true,
   },
   children: [{
-      path: '/home',
-      name: 'home',
+    path: 'home',
+    name: 'home',
+    meta: {
+      title: '首页'
+    },
+    component: homePage
+  },{
+      path: 'userManagement',
+      name: "userManagement",
       meta: {
-        title: '首页'
+        title: '个人中心'
       },
-      component: homePage
-  }, {
-      path: '/database',
-      name: 'database',
-      meta: {
-        title: '数据库'
-      },
-      component: DatabaseBackup
-    }, {
-      path: '/file',
-      name: 'file',
-      meta: {
-        title: '传统文件系统'
-      },
-      component: FileBackup
-    }, {
-      path: '/virtual',
-      name: 'virtual',
-      meta: {
-        title: '虚拟化'
-      },
-      component: VirtualBackup
-    }
+      component: UserManagerment
+  }
   ]
 };
 
 export const independenceRouterPage = [
-    loginRouter,
-    otherRouter,
-    registerRouter
+  loginRouter,
+  otherRouter,
+  registerRouter
 ]
 

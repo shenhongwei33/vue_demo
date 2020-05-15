@@ -4,7 +4,7 @@
              {{userName}}
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>个人中心</el-dropdown-item>
+              <el-dropdown-item @click.native="toPersonPage">个人中心</el-dropdown-item>
               <el-dropdown-item divided @click.native="logOut">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>       
@@ -32,7 +32,7 @@ export default {
         fun: getAESDecrypt("7NgoYWZwF786ew=="),
         method: "post"
       };
-      this.$store.dispatch("getHttpData", { paramsPkg }).then(json => {
+      this.$store.dispatch("notGetHttpData", { paramsPkg }).then(json => {
         if (json.code == "200") {
           Cookies.remove("wdp-iam-cookie");
           this.$router.push({
@@ -40,10 +40,13 @@ export default {
           });
         } else {
           if (json.code != "9090") {
-            this.$message.error("错了哦，这是一条错误消息");
+            this.$message.error("用户登出失败！");
           }
         }
       });
+    },
+    toPersonPage(){
+        this.$emit('personal');
     }
   },
   created() {},

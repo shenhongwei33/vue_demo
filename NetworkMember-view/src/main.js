@@ -8,9 +8,11 @@ import store from './store/store.js';
 import vueAxios from 'vue-axios'
 import ElementUI from 'element-ui';
 import i18n from './locale'
+import echarts from 'echarts'
 import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.config.productionTip = false
+Vue.prototype.$echarts = echarts
 Vue.use(ElementUI);
 Vue.use(vueAxios,axios);
 

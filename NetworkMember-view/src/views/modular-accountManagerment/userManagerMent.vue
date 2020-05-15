@@ -1,8 +1,6 @@
 <template>
   <div>
-    <el-container>
-      <el-main>userManager</el-main>
-    </el-container>
+    用户中心
   </div>
 </template>
 

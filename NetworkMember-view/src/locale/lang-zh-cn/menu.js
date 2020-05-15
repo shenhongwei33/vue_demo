@@ -1,6 +1,6 @@
 export default {
     home: "首页",
-    backUp: "备份管理",
+    backup: "备份管理",
     database: "数据库",
     file: "文件",
     virtual: "虚拟化",
